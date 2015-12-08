@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EEPlusWrappers
 {
-    public interface IExcelWorksheets : IEnumerable<IExcelWorksheets>
+    public interface IExcelWorksheets : IEnumerable<IExcelWorksheet>
     {
         ExcelWorksheets Worksheets { get; }
         IExcelWorksheet this[string name] { get; }
@@ -28,16 +28,16 @@ namespace EEPlusWrappers
             }
         }
 
-        public IEnumerator<IExcelWorksheets> GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator<IExcelWorksheet> GetEnumerator()
         {
             var worksheets = Worksheets.Select(x => new ExcelWorksheetWrapper(x)).ToList();
 
             return worksheets.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
